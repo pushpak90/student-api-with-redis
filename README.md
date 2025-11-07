@@ -76,6 +76,7 @@ Student-Management-System/
 
 
 ---
+---
 
 ## ⚙️ Setup & Installation
 
@@ -146,4 +147,5 @@ You can inspect Redis cache data using:
 - **RedisInsight (GUI)**: [Download here](https://redis.io/insight) to visualize keys, TTL, and values in a clean interface.
 
 ---
+
 
