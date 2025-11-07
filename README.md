@@ -74,9 +74,7 @@ Student-Management-System/
 │
 └── build.gradle
 
-
----
----
+```
 
 ## ⚙️ Setup & Installation
 
