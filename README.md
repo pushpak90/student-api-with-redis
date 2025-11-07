@@ -73,3 +73,77 @@ Student-Management-System/
 │   └── SpringbootMysqlDemoApplication.java
 │
 └── build.gradle
+
+
+---
+
+## ⚙️ Setup & Installation
+
+### 1️⃣ Clone the repository  
+Clone the project from GitHub and navigate to the folder.
+
+### 2️⃣ Create MySQL Database  
+Create a database named `studentdb` in MySQL.
+
+### 3️⃣ Configure `application.properties`  
+Add your MySQL username, password, and Redis configuration (host and port).
+
+### 4️⃣ Start Redis Server  
+Run Redis locally and ensure it’s accessible (check with `redis-cli ping`).
+
+### 5️⃣ Build and Run the Application  
+Use Gradle to build and run the project with `./gradlew bootRun`.
+
+---
+
+## 🌐 API Endpoints
+
+| Method | Endpoint | Description |
+|---------|-----------|-------------|
+| **POST** | `/api/students` | Add a new student |
+| **GET** | `/api/students` | Get all students (cached) |
+| **GET** | `/api/students/{id}` | Get student by ID (cached) |
+| **PUT** | `/api/students/{id}` | Update student details |
+| **DELETE** | `/api/students/{id}` | Delete student |
+
+---
+
+## 🧩 Caching Behavior (Redis)
+
+| Operation | Cache Key | Effect |
+|------------|------------|--------|
+| `getStudentList()` | `"students"` | Caches full list |
+| `getStudentById(id)` | `"student::<id>"` | Caches individual student |
+| `addStudent()` | Evicts `"students"` | Clears list cache |
+| `updateStudent()` | Updates `"student::<id>"` and clears `"students"` | Refresh cache |
+| `deleteStudent()` | Evicts `"student"` and `"students"` | Clears both caches |
+
+---
+
+## 🧠 Redis Integration Summary
+
+- Uses **Spring Cache abstraction** to manage caching automatically.  
+- Configured using **GenericJackson2JsonRedisSerializer** for human-readable JSON storage.  
+- Automatically handles cache invalidation on create, update, and delete operations.  
+- TTL (time-to-live) for cache entries set to **10 minutes** for freshness.
+
+---
+
+## 🧾 Application Flow
+
+1. **Client sends a request** (e.g., GET /api/students).  
+2. **Spring checks Redis cache**:  
+   - If data exists → returns cached data instantly.  
+   - If not → fetches from MySQL, caches it, and returns the result.  
+3. **Any write operation (POST, PUT, DELETE)** → automatically clears or refreshes the related caches.  
+
+---
+
+## 📊 View Redis Data
+
+You can inspect Redis cache data using:
+- **Redis CLI**: Run `redis-cli`, then `keys *` to list cached keys.  
+- **RedisInsight (GUI)**: [Download here](https://redis.io/insight) to visualize keys, TTL, and values in a clean interface.
+
+---
+
