@@ -46,4 +46,29 @@ To enhance speed and reduce database load, the project uses **Redis caching** wi
 ---
 
 ## 🏗️ Project Structure
-
+Student-Management-System/
+│
+├── src/main/java/com/dev/Student/Managment/System/
+│ ├── Config/
+│ │ └── RedisConfig.java
+│ │
+│ ├── Controller/
+│ │ └── StudentController.java
+│ │
+│ ├── DTOs/
+│ │ └── StudentDto.java
+│ │
+│ ├── Entity/
+│ │ └── Student.java
+│ │
+│ ├── Repository/
+│ │ └── StudentRepo.java
+│ │
+│ ├── Service/
+│ │ ├── StudentService.java
+│ │ └── ServiceImpl/
+│ │ └── StudentImpl.java
+│ │
+│ └── SpringbootMysqlDemoApplication.java
+│
+└── build.gradle
